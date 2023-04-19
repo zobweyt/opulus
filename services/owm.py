@@ -14,6 +14,7 @@ _config["language"] = "RU"
 _owm = OWM(settings.OWM_API_KEY, _config)
 weather_manager = _owm.weather_manager()
 
+# fmt: off
 # Custom emojis for `Weather.weather_icon_name`.
 # See details at https://openweathermap.org/weather-conditions.
 EMOJIS = {
@@ -25,8 +26,9 @@ EMOJIS = {
     "10d": "🌦️", "10n": "🌧️",  # rain
     "11d": "⛈️", "11n": "⛈️",  # thunderstorm
     "13d": "❄️", "13n": "❄️",  # snow
-    "50d": "🌫️", "50n": "🌫️"   # mist
+    "50d": "🌫️", "50n": "🌫️",  # mist
 }
+# fmt: on
 
 
 def format_observation(observation: Observation) -> str:
@@ -43,8 +45,10 @@ def format_observation(observation: Observation) -> str:
     weather_status = weather.detailed_status.capitalize()
     wind = weather.wind()["speed"]
 
-    message = f"{weather_emoji} *{weather_location} {average_temperature}°C*\n" \
-              f"{weather_status}, ощущается как *{temperature_feel}°C*\n" \
-              f"Ветер *{wind} м/c* · Влажность *{weather.humidity}*%"
+    message = (
+        f"{weather_emoji} *{weather_location} {average_temperature}°C*\n"
+        f"{weather_status}, ощущается как *{temperature_feel}°C*\n"
+        f"Ветер *{wind} м/c* · Влажность *{weather.humidity}*%"
+    )
 
     return message
