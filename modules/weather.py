@@ -16,7 +16,7 @@ from pyowm.commons.exceptions import NotFoundError
 from services.owm import weather_manager, format_observation
 
 
-LOCATION_REQUEST_STATE = range(1)
+LOCATION_REQUEST_STATE = 0
 
 
 async def weather_command(update: Update, _) -> int:
@@ -26,8 +26,7 @@ async def weather_command(update: Update, _) -> int:
     markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     await update.message.reply_text(
-        "Погоду в каком городе желаете получить?",
-        reply_markup=markup
+        "Погоду в каком городе желаете получить?", reply_markup=markup
     )
 
     return LOCATION_REQUEST_STATE
@@ -37,8 +36,7 @@ async def send_weather(update: Update, _) -> int:
     try:
         if update.message.location:
             observation = weather_manager.weather_at_coords(
-                update.message.location.latitude,
-                update.message.location.longitude
+                update.message.location.latitude, update.message.location.longitude
             )
         else:
             observation = weather_manager.weather_at_place(update.message.text)
@@ -49,20 +47,21 @@ async def send_weather(update: Update, _) -> int:
     wallhaven = Wallhaven()
 
     # See more about the request params at https://wallhaven.cc/help/api.
-    wallhaven.params["q"] = "nature weather"
-    wallhaven.params["resolution"] = "1920x1080"
+    wallhaven.params["q"] = "+sunset +sun +nature -people -anime -art -game"
+    wallhaven.params["ratio"] = "16:9"
     wallhaven.params["sort"] = "relevance"
 
     response = wallhaven.search()
+    image = random.choice(response.data)
 
-    image = random.choice(response.data).thumbs["large"]
-    message = format_observation(observation)
+    thumb = image.thumbs["large"]
+    caption = format_observation(observation)
 
     await update.message.reply_photo(
-        image,
-        message,
+        thumb,
+        caption,
         parse_mode=ParseMode.MARKDOWN,
-        reply_markup=ReplyKeyboardRemove()
+        reply_markup=ReplyKeyboardRemove(),
     )
 
     return ConversationHandler.END
