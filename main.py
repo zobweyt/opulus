@@ -3,7 +3,7 @@ import logging
 from telegram.ext import Application
 
 from opulus import settings
-from services.commands import HANDLERS, error_handler
+from services.handlers import HANDLERS, error_handler
 
 logger = logging.getLogger(__name__)
 
