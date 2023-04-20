@@ -13,9 +13,10 @@ TOKEN = config("TOKEN")
 
 MY_COMMANDS = [
     BotCommand("start", "получить помощь по использованию бота"),
-    BotCommand("weather", "получить текущую погоду в определённом месте"),
     BotCommand("cat", "прислать рандомного котика"),
     BotCommand("dog", "прислать рандомную собачку"),
+    BotCommand("weather", "получить текущую погоду в определённом месте"),
+    BotCommand("cancel", "отменить выполнение текущей команды"),
 ]
 
 OWM_API_KEY = config("OWM_API_KEY")
