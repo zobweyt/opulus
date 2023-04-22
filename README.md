@@ -1,6 +1,6 @@
 # Opulus ![last commit](https://img.shields.io/github/last-commit/zobweyt/opulus) ![license](https://img.shields.io/github/license/zobweyt/opulus)
 
-Gudgeon is a multi-purpose Telegram bot. It is an open-source project, allowing all of the community's members to contribute and see their code live in action. 
+Opulus is a multi-purpose Telegram bot. It is an open-source project, allowing all of the community's members to contribute and see their code live in action. 
 
 <details>
   <summary>Table of Contents</summary>
